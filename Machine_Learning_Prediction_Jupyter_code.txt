@@ -1,0 +1,40 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+
+# from sklearn.externals import joblib
+# from sklearn.model_selection import train_test_split
+# from sklearn.metrics import accuracy_score
+
+music_data = pd.read_csv('music.csv')
+X = music_data.drop(columns = ['genre'])
+y = music_data['genre']
+
+# 80% of data to be trained and 20% to be used for testing: 
+
+# X_train, X_test, y_train, y_test = train_test_split(X, y , test_size = 0.2)
+
+model = DecisionTreeClassifier()
+model.fit(X, y)
+
+# model.fit(X_train, y_train)
+
+# to test the accuracy of the model's predictions by comparison to the real results:
+# score = accuracy_score(y_test, predictions)
+# score
+
+# to make a prediction of what the new user music recommendation would be based on age and gender:
+
+# model = joblib.load('music-recommender.joblib')
+# predictions = model.predict([[21, 1]])
+# predictions
+
+# to get a visual representation how the model makes a prediction: open this file in Visual Studio Code.
+
+tree.export_graphviz(model, out_file = 'music-recommender.dot',
+                    feature_names = ['age', 'gender'],
+                    class_names = sorted(y.unique()),
+                    label = 'all',
+                    rounded = True,
+                    filled = True)
+
